@@ -1,0 +1,53 @@
+// 要跑出去才能找到
+@import url("../../style.less");
+
+.logo{
+	width: 70%;
+	margin-left: auto; // 居中: 左右相等填充
+	margin-right: auto;
+	display: block; // block模型
+	margin-top: 30%
+}
+
+.loge-title{
+	font-size: 48rpx;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 8%;
+	color: @font-color;
+}
+
+.loge-subtitle{
+	font-size: 34rpx;
+	text-align: center;
+	color: @font-color;
+	margin-top: 20rpx;
+}
+
+.login-btn{
+	width: 60%;
+	position: absolute; // 絕對定位：移到新的圖層
+	bottom: 20%;
+	left: 20%;
+	box-sizing: border-box; // 往後再添加有的沒有的，按鈕大小不會變
+	background-color: @background-color;
+	color: #fff
+}
+
+// 按下去會變色
+.login-btn:active{
+	background-color: @background-color-active;
+}
+
+.register-container{
+	position: absolute;
+	bottom: 50rpx;
+	width: 100%;
+	text-align: center;
+	font-size: 30rpx;
+	color: @font-color;
+	.register{
+		color: @background-color;
+	}
+}
+
