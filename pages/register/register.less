@@ -2,6 +2,41 @@
 
 .logo{
 	width: 70%;
-	
+	display: block; // 元素的顯示型態被設定為區塊元素，加了才能居中
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 80rpx;
 }
-// test
+
+.register-container{
+	width: 70%;
+	// view 自帶block了
+	margin-top: 150rpx;
+	margin-left: auto;
+	margin-right: auto;
+	.register-code{
+		border: solid 1rpx #e0e0e0;
+		font-size: 34rpx;
+		color: @font-color;
+		text-align: center;
+		background-color: #f5f5f5;
+		border-radius: 10rpx;
+		margin-bottom: 30rpx;
+		height: 80rpx;
+		padding: 0 20rpx; // 上下 左右
+	}
+	.register-desc{
+		color: @desc-color;
+		font-size: 28rpx;
+		line-height: 1.5; // 行間距
+		margin-bottom: 80rpx;
+	}
+	.register-btn{
+		background-color: @background-color;
+		color: #fff;
+		&:active{ // 按下按鈕
+			background-color: @background-color-active;
+		}
+	}
+}
+

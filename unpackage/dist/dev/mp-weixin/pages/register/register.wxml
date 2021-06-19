@@ -1,1 +1,1 @@
-<view></view>
+<view><image class="logo" src="../../static/logo-2.png" mode="widthFix"></image><view class="register-container"><input class="register-code" type="text" placeholder="輸入你的邀請碼" maxlength="6" data-event-opts="{{[['input',[['__set_model',['','registerCode','$event',[]]]]]]}}" value="{{registerCode}}" bindinput="__e"/><view class="register-desc">管理員創建員工證帳號後，你可以從你的個人郵箱中獲取註冊邀請碼<button class="register-btn" open-type="getUserInfo" data-event-opts="{{[['tap',[['register']]]]}}" bindtap="__e">執行註冊</button></view></view></view>
