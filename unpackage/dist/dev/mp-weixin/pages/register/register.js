@@ -143,7 +143,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
@@ -153,10 +152,26 @@ var _default =
   },
   methods: {
     register: function register() {// 得到臨時授權字符串
+
+      var that = this; // 這裡指VUE對象
+      if (that.registerCode == null || that.registerCode.length == 0) {
+        uni.showToast({
+          icon: "none",
+          title: "邀請碼不能為空" });
+
+        return;
+      } else if (/^[0-9]{6}$/.test(that.registerCode) == false) {
+        uni.showToast({
+          icon: "none",
+          title: "邀請碼必須是6位數" });
+
+        return;
+      }
+
       uni.login({
         provider: "weixin",
         success: function success(resp) {
-          //console.log(resp.code)
+          // console.log(resp.code)
           var code = resp.code;
           uni.getUserProfile({
             desc: '獲取用戶信息',
@@ -164,7 +179,23 @@ var _default =
               var nickName = resp.userInfo.nickName;
               var avatarUrl = resp.userInfo.avatarUrl; // 頭像
               console.log(nickName);
-              console.log(avatarUrl);
+              //console.log(avatarUrl)
+
+              // 把數據集中起來準備傳到ajax
+              var data = {
+                code: code,
+                nickname: nickName,
+                photo: avatarUrl,
+                registerCode: that.registerCode };
+
+              // url.register -> 請求路徑，表示後端web方法的地址
+              that.ajax(that.url.register, 'POST', data, function (resp) {
+                var permission = resp.data.permission;
+                uni.setStorageSync("permission", permission);
+                console.log(permission);
+                // TODO 跳轉到index頁面
+              });
+
             } });
 
         } });
