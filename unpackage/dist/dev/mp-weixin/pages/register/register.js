@@ -170,15 +170,15 @@ var _default =
 
       uni.login({
         provider: "weixin",
-        success: function success(resp) {
-          // console.log(resp.code)
+        success: function success(resp) {// 這個resp來自於weixin
+          console.log(resp.code);
           var code = resp.code;
           uni.getUserProfile({
             desc: '獲取用戶信息',
             success: function success(resp) {
               var nickName = resp.userInfo.nickName;
               var avatarUrl = resp.userInfo.avatarUrl; // 頭像
-              console.log(nickName);
+              //console.log(nickName)
               //console.log(avatarUrl)
 
               // 把數據集中起來準備傳到ajax
@@ -189,10 +189,10 @@ var _default =
                 registerCode: that.registerCode };
 
               // url.register -> 請求路徑，表示後端web方法的地址
-              that.ajax(that.url.register, 'POST', data, function (resp) {
+              that.ajax(that.url.register, 'POST', data, function (resp) {// 這個resp來自於後端
                 var permission = resp.data.permission;
                 uni.setStorageSync("permission", permission);
-                console.log(permission);
+                // console.log(permission)
                 // TODO 跳轉到index頁面
               });
 

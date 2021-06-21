@@ -162,6 +162,30 @@ var _default =
       uni.navigateTo({
         url: '../register/register' });
 
+    },
+    login: function login() {
+      var that = this;
+      uni.login({
+        provider: "weixin",
+        success: function success(resp) {// resp來自於weixin
+          var code = resp.code; // 臨時授權字符串，微信每次login會自動提供
+          that.ajax(that.url.login, "POST", {
+            "code": code },
+          function (resp) {// resp來自於後端
+            var permission = resp.data.permission;
+            uni.setStorageSync("permission", permission);
+          });
+          console.log("success");
+          // TODO 跳轉到登入頁面
+        },
+        fail: function fail(e) {// 對應login的success,不是對應ajax的success, ajax自己也已經封裝異常了
+          console.log(e);
+          uni.showToast({
+            icon: "none",
+            titile: "執行異常" });
+
+        } });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

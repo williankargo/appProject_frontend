@@ -25,13 +25,14 @@ createApp(app).$mount();
 var baseUrl = "http://192.168.50.65:8080/emos-wx-api";
 // protorype用來擴增本來VUE實例的東西
 _vue.default.prototype.url = {
-  register: baseUrl + "/user/register" };
+  register: baseUrl + "/user/register",
+  login: baseUrl + "/user/login" };
 
 
 _vue.default.prototype.ajax = function (url, method, data, fun) {
   uni.request({
     "url": url,
-    "moethod": method,
+    "method": method,
     "header": {
       token: uni.getStorageSync('token') },
 

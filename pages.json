@@ -4,8 +4,7 @@
 		    "path" : "pages/login/login",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
+		        "navigationBarTitleText": "歡迎使用EMOS系統"
 		    }
 		    
 		},
@@ -13,31 +12,29 @@
 		    "path" : "pages/demo/demo",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
+		        "navigationBarTitleText": "demo"
 		    }
 		    
 		},
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首頁"
 			}
 		}
         ,{
             "path" : "pages/register/register",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "新用戶註冊"
             }
             
         }
     ],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+	"globalStyle": { // 全局樣式，但小程序會優先引用上面的局部樣式
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "EMOS系統",
+		"navigationBarBackgroundColor": "#3474FF", // 標題欄背景色
+		"backgroundColor": "#EEEEF4"
 	}
 }

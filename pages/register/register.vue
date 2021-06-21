@@ -38,15 +38,15 @@
 
 				uni.login({
 					provider: "weixin",
-					success: function(resp) {
-						// console.log(resp.code)
+					success: function(resp) { // 這個resp來自於weixin
+						console.log(resp.code)
 						let code = resp.code;
 						uni.getUserProfile({
 							desc: '獲取用戶信息',
 							success: function(resp) {
 								let nickName = resp.userInfo.nickName;
 								let avatarUrl = resp.userInfo.avatarUrl; // 頭像
-								console.log(nickName)
+								//console.log(nickName)
 								//console.log(avatarUrl)
 								
 								// 把數據集中起來準備傳到ajax
@@ -57,10 +57,10 @@
 									registerCode: that.registerCode
 								}
 								// url.register -> 請求路徑，表示後端web方法的地址
-								that.ajax(that.url.register, 'POST', data, function(resp){
+								that.ajax(that.url.register, 'POST', data, function(resp){ // 這個resp來自於後端
 									let permission = resp.data.permission
 									uni.setStorageSync("permission", permission)
-									console.log(permission)
+									// console.log(permission)
 									// TODO 跳轉到index頁面
 								})
 								
