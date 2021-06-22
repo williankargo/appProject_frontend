@@ -39,7 +39,11 @@
 							uni.setStorageSync("permission", permission)
 						})
 						console.log("success")
-						// TODO 跳轉到登入頁面
+
+						// 跳轉到登入頁面
+						uni.switchTab({
+							url: "../index/index"
+						})
 					},
 					fail: function(e) { // 對應login的success,不是對應ajax的success, ajax自己也已經封裝異常了
 						console.log(e)

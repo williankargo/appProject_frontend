@@ -61,7 +61,11 @@
 									let permission = resp.data.permission
 									uni.setStorageSync("permission", permission)
 									// console.log(permission)
-									// TODO 跳轉到index頁面
+									
+									// 跳轉到index頁面
+									uni.switchTab({ // 跳轉到tab跟跳轉到普通頁面用的代碼是不一樣的
+										url: "../index/index"
+									})
 								})
 								
 							}
