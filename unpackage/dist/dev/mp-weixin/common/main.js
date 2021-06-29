@@ -26,7 +26,10 @@ var baseUrl = "http://192.168.50.65:8080/emos-wx-api";
 // protorype用來擴增本來VUE實例的東西
 _vue.default.prototype.url = {
   register: baseUrl + "/user/register",
-  login: baseUrl + "/user/login" };
+  login: baseUrl + "/user/login",
+  checkin: baseUrl + "/checkin/checkin",
+  createFaceModel: baseUrl + "/checkin/createFaceModel",
+  validCanCheckIn: baseUrl + "/checkin/validCanCheckIn" };
 
 
 _vue.default.prototype.ajax = function (url, method, data, fun) {
@@ -43,7 +46,8 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
         uni.redirectTo({
           url: "/pages/login/login.vue" });
 
-      } else if (resp.statusCode == 200 && resp.data.code == 200) {// 前面是http的狀態碼，後面resp.data是R對象的code
+      } else if (resp.statusCode == 200 && resp.data.code ==
+      200) {// 前面是http的狀態碼，後面resp.data是R對象的code
         var _data = resp.data;
         if (_data.hasOwnProperty("token")) {
           var token = _data.token;

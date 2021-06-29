@@ -38,7 +38,7 @@
 		<view class="nav-container">
 			<view class="nav-row">
 
-				<view class="nav">
+				<view class="nav" @tap="toPage('線上簽到','../checkin/checkin')">
 					<image src="../../static/nav-1.png" mode="widthFix" class="icon"></image>
 					<text class="name">線上簽到</text>
 				</view>
@@ -112,7 +112,12 @@
 
 		},
 		methods: {
-
+			toPage: function(name, url){
+				// TODO 驗證用戶權限
+				uni.navigateTo({
+					url: url
+				})
+			}
 		}
 	}
 </script>

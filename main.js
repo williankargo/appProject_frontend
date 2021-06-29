@@ -18,6 +18,9 @@ let baseUrl = "http://192.168.50.65:8080/emos-wx-api"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
 	login: baseUrl + "/user/login",
+	checkin: baseUrl + "/checkin/checkin",
+	createFaceModel: baseUrl + "/checkin/createFaceModel",
+	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn"
 }
 
 Vue.prototype.ajax = function(url, method, data, fun) {
@@ -34,7 +37,8 @@ Vue.prototype.ajax = function(url, method, data, fun) {
 				uni.redirectTo({
 					url: "/pages/login/login.vue"
 				})
-			} else if (resp.statusCode == 200 && resp.data.code == 200) { // 前面是http的狀態碼，後面resp.data是R對象的code
+			} else if (resp.statusCode == 200 && resp.data.code ==
+				200) { // 前面是http的狀態碼，後面resp.data是R對象的code
 				let data = resp.data
 				if (data.hasOwnProperty("token")) {
 					let token = data.token
@@ -52,4 +56,3 @@ Vue.prototype.ajax = function(url, method, data, fun) {
 		}
 	})
 }
-

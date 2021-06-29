@@ -1,5 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
 		{
 		    "path" : "pages/login/login",
 		    "style" :                                                                                    
@@ -65,7 +66,17 @@
                 "enablePullDownRefresh": false
             }
             
+        },
+		{
+            "path" : "pages/checkin/checkin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
         }
+        
     ],
 	"globalStyle": { // 全局樣式，但小程序會優先引用上面的局部樣式
 		"navigationBarTextStyle": "white",
