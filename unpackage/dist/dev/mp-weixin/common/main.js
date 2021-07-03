@@ -29,7 +29,8 @@ _vue.default.prototype.url = {
   login: baseUrl + "/user/login",
   checkin: baseUrl + "/checkin/checkin",
   createFaceModel: baseUrl + "/checkin/createFaceModel",
-  validCanCheckIn: baseUrl + "/checkin/validCanCheckIn" };
+  validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
+  searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin" };
 
 
 _vue.default.prototype.ajax = function (url, method, data, fun) {
