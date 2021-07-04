@@ -24,6 +24,11 @@ Vue.prototype.url = {
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin"
 }
 
+// 定義全局驗證函數
+Vue.prototype.checkPermission = function(perms){
+	
+}
+
 Vue.prototype.ajax = function(url, method, data, fun) {
 	uni.request({
 		"url": url,

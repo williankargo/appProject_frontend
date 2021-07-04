@@ -1,0 +1,42 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/checkin_result/checkin_result",
+          "pathName": "pages/checkin_result/checkin_result",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/checkin_result/checkin_result",
+          "pathName": "pages/checkin_result/checkin_result",
+          "query": "",
+          "scene": null,
+          "partialCompile": {
+            "enabled": false,
+            "pages": [
+              "pages/login/login"
+            ]
+          }
+        },
+        {
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@import url("../../style.less");
+
+.page{
+	background-color: #EEEEF4;
+}
+
+.swiper{
+	height: 233px;
+	image{
+		width: 100%;
+	}
+}
+
+.notify-container{
+	background-color: #fff;
+	padding: 25rpx;
+	position: relative; // 因為下面要用absolute
+	margin-bottom: 20rpx; 
+	.notify-title{
+		font-size: 34rpx;
+		color: @background-color;
+		margin-bottom: 10rpx;
+		.notify-icon{ // 小鈴鐺
+			width: 38rpx;
+			vertical-align: -8rpx; // 0rpx是baseline
+			margin-right: 5rpx;
+		}
+	}
+	.notify-content{
+		font-size: 30rpx;
+		color: @font-color;
+		&:before{ // 紅點，css假元素會顯示在前面
+			display: inline-block;
+			content: ""; // 假元素裡面一定要有content
+			width: 12rpx;
+			height: 12rpx;
+			border-radius: 6rpx;
+			background-color: red;
+			margin-left: 18rpx;
+			margin-right: 15rpx;
+			vertical-align: 3rpx;
+		}
+	}
+	.more-icon{ // 向右圖標
+		position: absolute;
+		right: 5rpx;
+		width: 60rpx; // 元件寬度
+		top: 50rpx;
+	}
+}
+
+.nav-container{
+	background-color: #fff;
+	margin-bottom: 20rpx;
+	padding: 50rpx 40rpx; // 上下左右
+	.nav-row{
+		display: flex; // flex佈局, 為什麼不用flex-wrap呢？因為html已經四個四個排好了
+		justify-content: space-between;
+		margin-bottom: 50rpx;
+		.nav{
+			text-align: center;
+			.icon{
+				width: 80rpx;
+			}
+			.name{
+				display: block;
+				font-size: 30rpx;
+				color: @font-color;
+			}
+		}
+	}
+	
+}
+
