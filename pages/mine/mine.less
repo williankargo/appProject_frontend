@@ -1,0 +1,74 @@
+@import url('../../style.less');
+
+.page{
+	padding: 35rpx;
+}
+
+.user-info{
+	margin-top: 50rpx;
+	padding-bottom: 20rpx; //（傳送門）所以這裡用padding往裡面
+	.border-outer{
+		width: 320rpx;
+		height: 320rpx;
+		background-color: #fbe3e1;
+		border-radius: 160rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-left: auto; // 最外層有margin要處理，border-inner就沒有margin要處理
+		margin-right: auto;
+		margin-bottom: 40rpx;
+		.border-inner{
+			width: 280rpx;
+			height: 280rpx;
+			background-color: #f5b8b4;
+			border-radius: 140rpx;
+			display: flex;
+			justify-content: center; // 左右
+			align-items: center; // 上下	
+			.photo{
+				width: 200rpx;
+				height: 200rpx;
+				border-radius: 120rpx; // 半徑
+				display: block;
+				border: solid 20rpx #ec7872;
+			}
+		}
+	}
+	.summary{
+		display: flex;
+		justify-content: space-between;
+		background-color: #F5f5f5;
+		color: @font-color; // 字體
+		padding: 15rpx 0; // 讓編筐線不頂到頂底
+		view{
+			text-align: center;
+			flex-grow: 1; // 會拉，因為父控件已經設定flex佈局，把本來view的block消滅了
+			flex-shrink: 1; // 不會縮
+			&:nth-child(2){
+				border-left: solid 1rpx #e0e0e0;
+				border-right: solid 1rpx #e0e0e0;
+			}
+			.title{
+				display: block;
+				color: #999;
+				font-size: 28rpx;
+				margin-bottom: 10rpx;
+			}
+			.value{
+				display: block;
+				color: @font-color;
+				font-size: 32rpx;
+			}
+		}
+	}
+}
+
+.list-little{
+	font-size: 32rpx;
+	font-weight: bold;
+	color: @background-color;
+	border-left: solid 15rpx @background-color;
+	padding-left: 20rpx;
+	margin: 35rpx 0; // (傳送門)margin會互相覆蓋，不會增加
+}

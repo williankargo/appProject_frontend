@@ -9,7 +9,8 @@
     "pages/contacts/contacts",
     "pages/mine/mine",
     "pages/checkin/checkin",
-    "pages/checkin_result/checkin_result"
+    "pages/checkin_result/checkin_result",
+    "pages/my_checkin/my_checkin"
   ],
   "subPackages": [],
   "window": {
@@ -59,6 +60,5 @@
       "desc": "test"
     }
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

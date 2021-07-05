@@ -35,7 +35,7 @@
             "path" : "pages/meeting_list/meeting_list",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "會議",
                 "enablePullDownRefresh": false
             }
             
@@ -44,7 +44,7 @@
             "path" : "pages/document/document",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "文檔",
                 "enablePullDownRefresh": false
             }
             
@@ -53,7 +53,7 @@
             "path" : "pages/contacts/contacts",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "通訊錄",
                 "enablePullDownRefresh": false
             }
             
@@ -62,7 +62,7 @@
             "path" : "pages/mine/mine",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "我的頁面",
                 "enablePullDownRefresh": false
             }
             
@@ -71,7 +71,7 @@
             "path" : "pages/checkin/checkin",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "在線簽到",
                 "enablePullDownRefresh": false
             }
             
@@ -81,7 +81,16 @@
             "path" : "pages/checkin_result/checkin_result",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "簽到結果",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my_checkin/my_checkin",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的考勤",
                 "enablePullDownRefresh": false
             }
             

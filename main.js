@@ -21,12 +21,21 @@ Vue.prototype.url = {
 	checkin: baseUrl + "/checkin/checkin",
 	createFaceModel: baseUrl + "/checkin/createFaceModel",
 	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
-	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin"
+	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
+	searchUserSummary: baseUrl+"/user/searchUserSummary"
 }
 
 // 定義全局驗證函數
 Vue.prototype.checkPermission = function(perms){
-	
+	let permission=uni.getStorageSync("permission")
+	let result=false
+	for(let one of perms){
+		if(permission.indexOf(one)!= -1){ // 看permission裡面有沒有需要的permission
+			result=true
+			break
+		}
+	}
+	return result;
 }
 
 Vue.prototype.ajax = function(url, method, data, fun) {

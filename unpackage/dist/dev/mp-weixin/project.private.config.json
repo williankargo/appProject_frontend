@@ -13,8 +13,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/checkin_result/checkin_result",
-          "pathName": "pages/checkin_result/checkin_result",
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
           "query": "",
           "scene": null
         },
@@ -31,10 +31,16 @@
           }
         },
         {
-          "name": "pages/login/login",
-          "pathName": "pages/login/login",
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
           "query": "",
-          "scene": null
+          "scene": null,
+          "partialCompile": {
+            "enabled": false,
+            "pages": [
+              "pages/login/login"
+            ]
+          }
         }
       ]
     }
