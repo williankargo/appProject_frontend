@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="statistics">
-			<image src:"../../static/big-icon-1.png" class="big-icon"></image>
+			<image src="../../static/big-icon-1.png" class="big-icon" mode="widthFix"></image>
 			<view class="report-title">
 				<text class="days">{{sum_1}}</text>
 				<text class="unit">天</text>
@@ -23,6 +23,10 @@
 					<text class="number">{{sum_3}}</text>
 				</view>
 			</view>
+		</view>
+		<view class="calendar-container">
+			<!-- 插入模式，不顯示農曆，顯示小紅點 -->
+			<uni-calendar :insert="true" :lunar="false" :select="list"></uni-calendar>
 		</view>
 	</view>
 </template>
@@ -47,6 +51,6 @@
 	}
 </script>
 
-<style>
-
+<style lang="less">
+	@import url('my_checkin.less');
 </style>

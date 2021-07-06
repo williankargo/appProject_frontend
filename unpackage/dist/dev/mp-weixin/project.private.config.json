@@ -41,6 +41,12 @@
               "pages/login/login"
             ]
           }
+        },
+        {
+          "name": "pages/my_checkin/my_checkin",
+          "pathName": "pages/my_checkin/my_checkin",
+          "query": "",
+          "scene": null
         }
       ]
     }

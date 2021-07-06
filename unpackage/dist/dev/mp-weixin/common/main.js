@@ -66,7 +66,7 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
         var _data = resp.data;
         if (_data.hasOwnProperty("token")) {
           var token = _data.token;
-          console.log(token);
+          //console.log(token)
           uni.setStorageSync("token", token); // 把伺服器發來的token存到本地
         }
         fun(resp); // 參數傳入的匿名函數，自己定義看移動端想從resp中提取什麼東西
