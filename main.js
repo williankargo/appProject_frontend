@@ -22,7 +22,8 @@ Vue.prototype.url = {
 	createFaceModel: baseUrl + "/checkin/createFaceModel",
 	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
-	searchUserSummary: baseUrl+"/user/searchUserSummary"
+	searchUserSummary: baseUrl+"/user/searchUserSummary",
+	searchMonthCheckin: baseUrl+"/checkin/searchMonthCheckin"
 }
 
 // 定義全局驗證函數
@@ -45,7 +46,7 @@ Vue.prototype.ajax = function(url, method, data, fun) {
 		"header": {
 			token: uni.getStorageSync('token')
 		},
-		"data": data,
+		"data": data, // 未指定type，這裡默認為Content-Type: application/json，後端@RequestBody接收
 		// 當請求成功時呼叫的函式。這個函式會得到resp：從伺服器返回的資料。
 		success: function(resp) {
 			if (resp.statusCode == 401) {

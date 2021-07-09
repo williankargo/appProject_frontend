@@ -170,8 +170,8 @@ var _default =
         success: function success(resp) {// resp來自於weixin
           var code = resp.code; // 臨時授權字符串，微信每次login會自動提供
           that.ajax(that.url.login, "POST", {
-            "code": code },
-          function (resp) {// resp來自於後端
+            "code": code // Content-Type: application/json編碼格式 後端對應 @RequestBody 接收
+          }, function (resp) {// resp來自於後端
             var permission = resp.data.permission;
             uni.setStorageSync("permission", permission);
           });

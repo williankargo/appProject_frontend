@@ -60,5 +60,6 @@
       "desc": "test"
     }
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

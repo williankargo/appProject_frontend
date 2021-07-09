@@ -33,7 +33,7 @@
 					success: function(resp) { // resp來自於weixin
 						let code = resp.code // 臨時授權字符串，微信每次login會自動提供
 						that.ajax(that.url.login, "POST", {
-							"code": code
+							"code": code // Content-Type: application/json編碼格式 後端對應 @RequestBody 接收
 						}, function(resp) { // resp來自於後端
 							let permission = resp.data.permission
 							uni.setStorageSync("permission", permission)

@@ -93,13 +93,13 @@
 									let city = addressComponent.city;
 									let district = addressComponent.district;
 									uni.uploadFile({
-										url: that.url.checkin,
-										filePath: that.photoPath,
-										name: "photo", // 檔案參數的名字
+										url: that.url.checkin, // 要傳到的後端
+										filePath: that.photoPath, // 檔案原始的位置
+										name: "photo", // 上傳的檔案的名字，Content-Type: multipart/form-data
 										header: {
 											token: uni.getStorageSync("token")
 										},
-										formData: {
+										formData: { // Content-Type: multipart/form-data
 											address: address,
 											country: nation,
 											province: province,
