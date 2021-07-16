@@ -23,7 +23,8 @@ Vue.prototype.url = {
 	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
 	searchUserSummary: baseUrl+"/user/searchUserSummary",
-	searchMonthCheckin: baseUrl+"/checkin/searchMonthCheckin"
+	searchMonthCheckin: baseUrl+"/checkin/searchMonthCheckin",
+	refreshMessage: baseUrl+"/message/refreshMessage"
 }
 
 // 定義全局驗證函數

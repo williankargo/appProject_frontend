@@ -95,21 +95,57 @@
 			</view>
 
 		</view>
-
+		<!-- 氣泡消息 -->
+		<uni-popup ref="popupMsg" type="top">
+			<uni-popup-message type="success" :message="'接收到' + lastRows + '條消息'" :duration="2000"></uni-popup-message>
+		</uni-popup>
 
 	</view>
 
 </template>
 
 <script>
+	// 引入組件且後面註冊組件
+	import uniPopup from '@/components/uni-popup/uni-popup.vue';
+	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue';
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
 	export default {
+		components:{
+			uniPopup,
+			uniPopupMessage,
+			uniPopupDialog
+		},
 		data() {
 			return {
-				unreadRows: 0
+				unreadRows: 0,
+				lastRows: 0,
+				timer: null
 			}
 		},
-		onLoad() {
-
+		onLoad:function(){
+			let that=this
+			uni.$on("showMessage", function(){ // 創建監聽事件
+				that.$refs.popupMsg.open()
+			})
+		},
+		onUnload:function(){  // 關閉頁面時觸發
+			uni.$off("showMessage") // 解除監聽事件
+		},
+		onShow:function(){
+			let that=this
+			that.timer=setInterval(function(){ // 定時器已經寫在模型層
+				that.ajax(that.url.refreshMessage, "GET", null, function(resp){
+					that.unreadRows=resp.data.unreadRows
+					that.lastRows=resp.data.lastRows
+					if(that.lastRows>0){
+						uni.$emit("showMessage") // 觸發監聽事件
+					}
+				})
+			},5000)
+		},
+		onHide: function(){ // 隱藏頁面(例如到其他頁面)時觸發
+			let that=this
+			clearInterval(that.timer) // 刪除定時器
 		},
 		methods: {
 			toPage: function(name, url){
