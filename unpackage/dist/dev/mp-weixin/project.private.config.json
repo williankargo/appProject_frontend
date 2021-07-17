@@ -47,6 +47,12 @@
           "pathName": "pages/my_checkin/my_checkin",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/message_list/message_list",
+          "pathName": "pages/message_list/message_list",
+          "query": "",
+          "scene": null
         }
       ]
     }

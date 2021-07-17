@@ -54,7 +54,7 @@
 				<view class="line"></view>
 			</view>
 			<view class="calendar-container">
-				<view class="calendar" v-for="one in weekCheckin" :key="one"> <!-- 前面one是臨時變量，要正式在後面定義key -->
+				<view class="calendar" v-for="one in weekCheckin" :key="one"> <!-- 定義key 避免重複產生DOM元素而浪費資源 -->
 					<image src="../../static/icon-9.png" mode="widthFix" class="calendar-icon" v-if="one.type=='工作日'"></image>
 					<image src="../../static/icon-10.png" mode="widthFix" class="calendar-icon" v-if="one.type=='節假日'"></image>
 					<text class="day">{{one.day}}</text>
