@@ -24,7 +24,8 @@ Vue.prototype.url = {
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
 	searchUserSummary: baseUrl+"/user/searchUserSummary",
 	searchMonthCheckin: baseUrl+"/checkin/searchMonthCheckin",
-	refreshMessage: baseUrl+"/message/refreshMessage"
+	refreshMessage: baseUrl+"/message/refreshMessage",
+	searchMessageByPage: baseUrl+"/message/searchMessageByPage"
 }
 
 // 定義全局驗證函數
