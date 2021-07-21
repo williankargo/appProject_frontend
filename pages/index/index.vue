@@ -127,6 +127,13 @@
 			uni.$on("showMessage", function(){ // 創建監聽事件
 				that.$refs.popupMsg.open()
 			})
+			that.ajax(that.url.refreshMessage, "GET", null, function(resp){ // 一進入頁面就會看到輪詢請求，所以不會等五秒才看到
+				that.unreadRows=resp.data.unreadRows
+				that.lastRows=resp.data.lastRows
+				if(that.lastRows>0){
+					uni.$emit("showMessage")
+				}
+			})
 		},
 		onUnload:function(){  // 關閉頁面時觸發
 			uni.$off("showMessage") // 解除監聽事件

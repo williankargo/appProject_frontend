@@ -1,9 +1,10 @@
 <template>
 	<view class="page">
 		<uni-list>
+			<!-- link開啟右側箭頭並提供反饋, to傳參數到其他vue頁面 -->
 			<uni-list-chat v-for="one in list" :key="one.id" :title="one.senderName" :note="one.msg"
 				:avatar="one.senderPhoto" badgePositon="left" :badgeText="one.readFlag?'':'dot'" link="navigateTo"
-				:to="''">
+				:to="'../message/message?id=' + one.id + '&readFlag=' + one.readFlag + '&refId=' + one.refId">
 				<view class="chat-custom-right">
 					<text class="chat-custom-text">{{one.sendTime}}</text>
 				</view>
@@ -65,7 +66,7 @@
 					let result = resp.data.result
 					if(result == null||result.length == 0){ // 沒有查出東西，已經到最後一頁了
 						ref.isLastPage = true;
-						ref.page = ref.page - 1; // todo: 下一頁已經沒有東西了，要翻回去
+						ref.page = ref.page - 1; // 下一頁已經沒有東西了，要翻回去
 						uni.showToast({
 							icon: 'none',
 							title: '已經到底了'

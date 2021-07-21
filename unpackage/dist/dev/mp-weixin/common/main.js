@@ -34,7 +34,11 @@ _vue.default.prototype.url = {
   searchUserSummary: baseUrl + "/user/searchUserSummary",
   searchMonthCheckin: baseUrl + "/checkin/searchMonthCheckin",
   refreshMessage: baseUrl + "/message/refreshMessage",
-  searchMessageByPage: baseUrl + "/message/searchMessageByPage" };
+  searchMessageByPage: baseUrl + "/message/searchMessageByPage",
+  searchMessageById: baseUrl + "/message/searchMessageById",
+  updateUnreadMessage: baseUrl + "/message/updateUnreadMessage",
+  deleteMessageRefById: baseUrl + "/message/deleteMessageRefById" };
+
 
 
 // 定義全局驗證函數
