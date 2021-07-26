@@ -53,6 +53,18 @@
           "pathName": "pages/message_list/message_list",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/meeting_list/meeting_list",
+          "pathName": "pages/meeting_list/meeting_list",
+          "query": "",
+          "scene": null,
+          "partialCompile": {
+            "enabled": false,
+            "pages": [
+              "pages/meeting_list/meeting_list"
+            ]
+          }
         }
       ]
     }
