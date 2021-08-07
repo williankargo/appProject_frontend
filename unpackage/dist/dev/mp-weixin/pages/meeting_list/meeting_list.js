@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
 //
 //
 //
@@ -230,7 +230,72 @@ var _default =
 
 
   },
-  methods: {} };exports.default = _default;
+  onShow: function onShow() {
+    var that = this;
+    that.page = 1;
+    that.isLastPage = false;
+    that.list = [];
+    that.loadMeetingList(that);
+  },
+  onReachBottom: function onReachBottom() {// 觸底會觸發
+    var that = this;
+    if (that.isLastPage) {
+      return;
+    }
+    that.page = that.page + 1;
+    that.loadMeetingList(that);
+  },
+  methods: {
+    loadMeetingList: function loadMeetingList(ref) {
+      var data = {
+        page: ref.page,
+        length: ref.length };
+
+      // ref 可傳入 that = this
+      ref.ajax(ref.url.searchMyMeetingListByPage, "POST", data, function (resp) {
+        var result = resp.data.result;
+        if (result == null || result.length == 0) {
+          ref.isLastPage = true;
+          ref.page = ref.page - 1;
+          if (ref.page > 1) {
+            uni.showToast({
+              icon: "none",
+              title: "已經到底了" });
+
+          }
+        } else
+        {var _iterator = _createForOfIteratorHelper(
+          result),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var one = _step.value;var _iterator2 = _createForOfIteratorHelper(
+              one.list),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var meeting = _step2.value;
+                  if (meeting.type == 1) {
+                    meeting.type = "線上會議";
+                  } else
+                  if (meeting.type = 2) {
+                    meeting.type = "線下會議";
+                  }
+
+                  if (meeting.status == 3) {
+                    meeting.status = "未開始";
+                  } else
+                  if (meeting.status = 4) {
+                    meeting.status = "進行中";
+                  }
+                }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+              if (ref.list.length > 0) {
+                var last = ref.list[ref.list.length - 1];
+                if (last.date == one.date) {
+                  last.list = last.list.concat(one.list); // 將date一樣的list合併
+                } else {
+                  ref.list.push(one); // 加到大list中
+                }
+              } else {
+                ref.list.push(one); // 加到大list中
+              }
+            }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+        }
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

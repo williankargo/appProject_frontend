@@ -98,8 +98,71 @@
 
 
 		},
+		onShow: function(){
+			let that = this
+			that.page = 1
+			that.isLastPage = false
+			that.list = []
+			that.loadMeetingList(that)
+		},
+		onReachBottom: function(){  // 觸底會觸發
+			let that = this
+			if(that.isLastPage){
+				return
+			}
+			that.page = that.page + 1
+			that.loadMeetingList(that)
+		},
 		methods: {
-
+			loadMeetingList :function(ref){
+				let data={
+					page: ref.page,
+					length: ref.length
+				}
+				// ref 可傳入 that = this
+				ref.ajax(ref.url.searchMyMeetingListByPage, "POST", data, function(resp){
+					let result = resp.data.result
+					if(result == null || result.length == 0){
+						ref.isLastPage = true
+						ref.page = ref.page - 1
+						if(ref.page > 1){
+							uni.showToast({
+								icon: "none",
+								title: "已經到底了"
+							})
+						}
+					}
+					else{
+						for(let one of result){
+							for(let meeting of one.list){
+								if(meeting.type == 1){
+									meeting.type = "線上會議"
+								}
+								else if(meeting.type = 2){
+									meeting.type = "線下會議"
+								}
+								
+								if(meeting.status == 3){
+									meeting.status = "未開始"
+								}
+								else if(meeting.status = 4){
+									meeting.status = "進行中"
+								}
+							}
+							if(ref.list.length > 0){
+								let last = ref.list[ref.list.length - 1]
+								if(last.date == one.date){
+									last.list = last.list.concat(one.list) // 將date一樣的list合併
+								}else{
+									ref.list.push(one) // 加到大list中
+								}
+							}else{
+								ref.list.push(one)  // 加到大list中
+							}
+						}
+					}
+				})	
+			}
 		}
 	}
 </script>

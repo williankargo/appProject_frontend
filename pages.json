@@ -113,6 +113,24 @@
             }
             
         }
+        ,{
+            "path" : "pages/meeting/meeting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "會議詳情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/members/members",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "選擇成員",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": { // 全局樣式，但小程序會優先引用上面的局部樣式
 		"navigationBarTextStyle": "white",

@@ -65,6 +65,18 @@
               "pages/meeting_list/meeting_list"
             ]
           }
+        },
+        {
+          "name": "pages/meeting/meeting",
+          "pathName": "pages/meeting/meeting",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/members/members",
+          "pathName": "pages/members/members",
+          "query": "",
+          "scene": null
         }
       ]
     }
