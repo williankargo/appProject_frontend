@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
 		<image src="../../static/logo-3.jpg" mode="widthFix" class="logo"></image>
-		<view class="add">
+		<view class="add" v-if="checkPermission(['ROOT', 'MEETING:INSERT'])" @tap="toMeetingPage(null, 'insert')">
 			<image src="../../static/icon-17.png" mode="widthFix" class="icon"></image>
 			<text>創建會議</text>
 		</view>
@@ -114,7 +114,7 @@
 			that.loadMeetingList(that)
 		},
 		methods: {
-			loadMeetingList :function(ref){
+			loadMeetingList: function(ref){
 				let data={
 					page: ref.page,
 					length: ref.length
@@ -162,6 +162,11 @@
 						}
 					}
 				})	
+			},
+			toMeetingPage: function(id, opt){
+				uni.navigateTo({
+					url: "../meeting/meeting?id=" + id + "&opt=" + opt
+				})
 			}
 		}
 	}

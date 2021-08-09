@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page" v-if="checkPermission(['ROOT', 'MEETING:INSERT', 'MEETING:UPDATE'])">
 		<view class="header">
 			<input type="text" class="title" v-model="title" placeholder="輸入會議標題"
 				placeholder-class="title-placeholder" />
@@ -9,42 +9,39 @@
 			<view class="list">
 				<view class="item">
 					<view class="key">日期</view>
-					<picker v-if="canEdit" mode="date" :value="date">
+					<picker v-if="canEdit" mode="date" :value="date" @change="dateChange">
 						<view class="uni-input">{{date}}</view>
 					</picker>
 					<text v-if="!canEdit" class="value">{{date}}</text>
 				</view>
 				<view class="item">
 					<view class="key">開始時間</view>
-					<picker v-if="canEdit" mode="time" :value="start">
+					<picker v-if="canEdit" mode="time" :value="start" @change="startChange">
 						<view class="uni-input">{{start}}</view>
 					</picker>
 					<text v-if="!canEdit" class="value">{{start}}</text>
 				</view>
 				<view class="item">
 					<view class="key">結束時間</view>
-					<picker v-if="canEdit" mode="time" :value="end">
+					<picker v-if="canEdit" mode="time" :value="end" @change="endChange">
 						<view class="uni-input">{{end}}</view>
 					</picker>
 					<text v-if="!canEdit" class="value">{{end}}</text>
 				</view>
 				<view class="item">
 					<view class="key">會議類型</view>
-					<picker v-if="canEdit"></picker>
-				</view>
-				<view class="item">
-					<view class="key">會議類型</view>
-					<picker v-if="canEdit" :value="typeIndex" :range="typeArray">{{typeArray[typeIndex]}}</picker>
+					<picker v-if="canEdit" :value="typeIndex" :range="typeArray" @change="typeChange">
+						{{typeArray[typeIndex]}}</picker>
 					<text v-if="!canEdit" class="value">{{typeArray[typeIndex]}}</text>
 				</view>
+				<view class="item" v-if="typeArray[typeIndex] == '線下會議'" @tap="editPlace">
+					<view class="key">地點</view>
+					<view class="value">{{place}}</view>
+				</view>
+				<view @tap="editDesc">
+					<text class="desc">{{desc}}</text>
+				</view>
 			</view>
-			<view class="item" v-if="typeArray[typeIndex] == '線下會議'">
-				<view class="key">地點</view>
-				<view class="value">{{place}}</view>
-			</view>
-		</view>
-		<view>
-			<text class="desc">{{desc}}</text>
 		</view>
 		<view class="members">
 			<view class="number">參會者({{ members.length }}人)</view>
@@ -62,10 +59,10 @@
 		<button class="btn">保存</button>
 		<!-- 氣泡消息 -->
 		<uni-popup ref="popupPlace" type="dialog">
-			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議地點" :value="place"></uni-popup-dialog>
+			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議地點" :value="place" @confirm="finishPlace"></uni-popup-dialog>
 		</uni-popup>
 		<uni-popup ref="popupDesc" type="dialog">
-			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議內容" :value="desc"></uni-popup-dialog>
+			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議內容" :value="desc" @confirm="finishDesc"></uni-popup-dialog>
 		</uni-popup>
 	</view>
 
@@ -109,7 +106,16 @@
 			let currPage = pages[pages.length - 1]
 			// 判斷是不是從會議列表頁面進入的
 			if (!currPage.hasOwnProperty("finishMembers") || !currPage.finishMembers) { // true -> 不是從members.vue來的
-				//todo 未完成
+				if (that.opt == "insert") { // 那說明要創建一個新的會議
+					let now = new Date()
+
+					now.setTime(now.getTime() + 30 * 60 * 1000) // 會議設定在半小時毫秒以後
+					that.date = now.format("yyyy-MM-dd")
+					that.start = now.format("hh:mm")
+
+					now.setTime(now.getTime() + 60 * 60 * 1000) // 會議結束在一小時毫秒後
+					that.end = now.format("hh:mm")
+				}
 			} else {
 				let members = []
 				// 把array中的String轉換成數字
@@ -124,6 +130,10 @@
 				});
 			}
 		},
+		onLoad: function(options) {
+			this.id = options.id
+			this.opt = options.opt
+		},
 		methods: {
 			toMembersPage: function() {
 				let array = []
@@ -133,7 +143,55 @@
 				uni.navigateTo({
 					url: "../members/members?members=" + array.join(",")
 				});
-			}
+			},
+			dateChange: function(e) {
+				this.date = e.detail.value
+			},
+			startChange: function(e) {
+				this.start = e.detail.value
+			},
+			endChange: function(e) {
+				this.end = e.detail.value
+			},
+			typeChange: function(e) {
+				this.typeIndex = e.detail.value
+			},
+			
+			editPlace: function(){
+				if(!this.canEdit){
+					return
+				}
+				this.$refs.popupPlace.open()
+			},
+			finishPlace: function(done, value){
+				if (value != null && value != ''){
+					this.place = value
+					done() 				// 關閉氣泡消息
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: '地點不能為空'
+					})
+				}
+			},
+			editDesc: function(){
+				if(!this.canEdit){
+					return
+				}
+				this.$refs.popupDesc.open()
+			},
+			finishDesc: function(done, value){
+				if (value != null && value != ''){
+					this.desc = value
+					done() 				// 關閉氣泡消息
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: '內容不能為空'
+					})
+				}
+			},
+			
 		}
 	};
 </script>

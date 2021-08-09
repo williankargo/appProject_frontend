@@ -118,7 +118,8 @@
   overflow: hidden;
 }
 .uni-list-chat__header-box.data-v-62e4955a {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

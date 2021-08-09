@@ -120,6 +120,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.checkPermission(["ROOT", "MEETING:INSERT", "MEETING:UPDATE"])
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -227,9 +236,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 {
   components: {
     uniPopup: uniPopup,
@@ -264,7 +270,16 @@ __webpack_require__.r(__webpack_exports__);
     var currPage = pages[pages.length - 1];
     // 判斷是不是從會議列表頁面進入的
     if (!currPage.hasOwnProperty("finishMembers") || !currPage.finishMembers) {// true -> 不是從members.vue來的
-      //todo 未完成
+      if (that.opt == "insert") {// 那說明要創建一個新的會議
+        var now = new Date();
+
+        now.setTime(now.getTime() + 30 * 60 * 1000); // 會議設定在半小時毫秒以後
+        that.date = now.format("yyyy-MM-dd");
+        that.start = now.format("hh:mm");
+
+        now.setTime(now.getTime() + 60 * 60 * 1000); // 會議結束在一小時毫秒後
+        that.end = now.format("hh:mm");
+      }
     } else {
       var members = [];
       // 把array中的String轉換成數字
@@ -279,6 +294,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
+  onLoad: function onLoad(options) {
+    this.id = options.id;
+    this.opt = options.opt;
+  },
   methods: {
     toMembersPage: function toMembersPage() {
       var array = [];var _iterator2 = _createForOfIteratorHelper(
@@ -288,6 +307,53 @@ __webpack_require__.r(__webpack_exports__);
       uni.navigateTo({
         url: "../members/members?members=" + array.join(",") });
 
+    },
+    dateChange: function dateChange(e) {
+      this.date = e.detail.value;
+    },
+    startChange: function startChange(e) {
+      this.start = e.detail.value;
+    },
+    endChange: function endChange(e) {
+      this.end = e.detail.value;
+    },
+    typeChange: function typeChange(e) {
+      this.typeIndex = e.detail.value;
+    },
+
+    editPlace: function editPlace() {
+      if (!this.canEdit) {
+        return;
+      }
+      this.$refs.popupPlace.open();
+    },
+    finishPlace: function finishPlace(done, value) {
+      if (value != null && value != '') {
+        this.place = value;
+        done(); // 關閉氣泡消息
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: '地點不能為空' });
+
+      }
+    },
+    editDesc: function editDesc() {
+      if (!this.canEdit) {
+        return;
+      }
+      this.$refs.popupDesc.open();
+    },
+    finishDesc: function finishDesc(done, value) {
+      if (value != null && value != '') {
+        this.desc = value;
+        done(); // 關閉氣泡消息
+      } else {
+        uni.showToast({
+          icon: 'none',
+          title: '內容不能為空' });
+
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

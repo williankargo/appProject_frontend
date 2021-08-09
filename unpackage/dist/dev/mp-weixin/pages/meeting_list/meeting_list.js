@@ -97,6 +97,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.checkPermission(["ROOT", "MEETING:INSERT"])
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -294,6 +303,11 @@ var _default =
             }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
         }
       });
+    },
+    toMeetingPage: function toMeetingPage(id, opt) {
+      uni.navigateTo({
+        url: "../meeting/meeting?id=" + id + "&opt=" + opt });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
