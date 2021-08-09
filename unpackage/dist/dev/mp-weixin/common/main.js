@@ -38,7 +38,9 @@ _vue.default.prototype.url = {
   searchMessageById: baseUrl + "/message/searchMessageById",
   updateUnreadMessage: baseUrl + "/message/updateUnreadMessage",
   deleteMessageRefById: baseUrl + "/message/deleteMessageRefById",
-  searchMyMeetingListByPage: baseUrl + "/meeting/searchMyMeetingListByPage" };
+  searchMyMeetingListByPage: baseUrl + "/meeting/searchMyMeetingListByPage",
+  searchUserGroupByDept: baseUrl + "/user/searchUserGroupByDept",
+  searchMembers: baseUrl + "/user/searchMembers" };
 
 
 

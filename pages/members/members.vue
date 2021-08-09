@@ -56,6 +56,41 @@
 				],
 				members: []
 			}
+		},
+		onShow: function(){
+			this.loadData(this)
+		},
+		onLoad: function(options){ // 接收meeting.vue透過navigateTo()傳過來的參數
+			if(options.hasOwnProperty('members')){
+				let members = options.members
+				this.members = members.split(',') // String轉換成array
+			}
+			
+		},
+		methods: {
+			loadData: function(ref){
+				ref.ajax(ref.url.searchUserGroupByDept, "POST", {keyword:ref.keyword}, function(resp){
+					let result = resp.data.result
+					ref.list = result
+					for(let dept of ref.list){
+						for(let member of dept.members){
+							if(ref.members.indexOf(members.userId +"") != -1){ // 後面的members哪裡來的？onLoad()時meeting.vue透過url傳過來的，因為傳過來是數字，要轉成string
+								member.checked = true
+							}else{
+								member.checked = false
+							}
+						}
+					}
+				})
+			},
+			selected: function(e){
+				let that = this
+				that.members = e.detail.value // 當前所有選中的成員的userId
+				let pages = getCurrentPages() // 當前頁面棧數組
+				let prePage = pages[pages.length - 2] // -2到上一個頁面 -1是當前頁
+				prevPage.members = that.members // 當這個頁面的數據綁定到上一個頁面
+				prePage.finishMembers = true // 且給上個頁面賦予finishMembers
+			}
 		}
 	}
 </script>
