@@ -56,7 +56,7 @@
 				</view>
 			</view>
 		</view>
-		<button class="btn">保存</button>
+		<button class="btn" @tap="save">保存</button>
 		<!-- 氣泡消息 -->
 		<uni-popup ref="popupPlace" type="dialog">
 			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議地點" :value="place" @confirm="finishPlace"></uni-popup-dialog>
@@ -191,7 +191,54 @@
 					})
 				}
 			},
-			
+			save: function(){
+				let that = this
+				let array = []
+				for(let one of that.members){
+					array.push(one.id)
+				}
+				if( // 驗證數據
+					that.checkBlank(that.title, "會議題目") ||
+					that.checkValidStartAndEnd(that.start, that.end) ||
+					(that.typeIndex == "1" && that.checkBlank(that.place, "會議地點")) ||
+					that.checkBlank(that.desc, "會議內容") ||
+					array.length == 0
+				){
+					return
+				}
+				let data = {
+					title: that.title, 
+					date: that.date,
+					start: that.start,
+					end: that.end,
+					type: Number(that.typeIndex) + 1, // 本來是 0 1
+					members: JSON.stringify(array),
+					desc: that.desc,
+					id: that.id,
+					instanceId: that.instanceId
+				};
+				if(that.typeIndex == "1"){
+					data.place = that.place
+				}
+				let url;
+				if(that.opt == "insert"){ // opt是從上個頁面傳來的
+					url = that.url.insertMeeting
+				}
+				else if(that.opt == "edit"){
+					url = that.url.updateMeetingInfo
+				}
+				that.ajax(url, 'POST', data, function(resp){
+					uni.showToast({
+						icon: 'success',
+						title: '保存成功',
+						complete: function(){
+							setTimeout(function(){
+								uni.navigateBack({});
+							}, 2000) // 兩秒後執行
+						}
+					})
+				})
+			}
 		}
 	};
 </script>

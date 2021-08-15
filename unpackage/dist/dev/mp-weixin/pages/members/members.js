@@ -219,9 +219,9 @@ var _default =
       var that = this;
       that.members = e.detail.value; // 當前所有選中的成員的userId
       var pages = getCurrentPages(); // 當前頁面棧數組
-      var prePage = pages[pages.length - 2]; // -2到上一個頁面 -1是當前頁
+      var prevPage = pages[pages.length - 2]; // -2到上一個頁面 -1是當前頁
       prevPage.members = that.members; // 當這個頁面的數據綁定到上一個頁面
-      prePage.finishMembers = true; // 且給上個頁面賦予finishMembers
+      prevPage.finishMembers = true; // 且給上個頁面賦予finishMembers
     } } };exports.default = _default;
 
 /***/ }),

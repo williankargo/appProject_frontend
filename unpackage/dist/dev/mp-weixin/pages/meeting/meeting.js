@@ -354,6 +354,54 @@ __webpack_require__.r(__webpack_exports__);
           title: '內容不能為空' });
 
       }
+    },
+    save: function save() {
+      var that = this;
+      var array = [];var _iterator3 = _createForOfIteratorHelper(
+      that.members),_step3;try {for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {var one = _step3.value;
+          array.push(one.id);
+        }} catch (err) {_iterator3.e(err);} finally {_iterator3.f();}
+      if ( // 驗證數據
+      that.checkBlank(that.title, "會議題目") ||
+      that.checkValidStartAndEnd(that.start, that.end) ||
+      that.typeIndex == "1" && that.checkBlank(that.place, "會議地點") ||
+      that.checkBlank(that.desc, "會議內容") ||
+      array.length == 0)
+      {
+        return;
+      }
+      var data = {
+        title: that.title,
+        date: that.date,
+        start: that.start,
+        end: that.end,
+        type: Number(that.typeIndex) + 1, // 本來是 0 1
+        members: JSON.stringify(array),
+        desc: that.desc,
+        id: that.id,
+        instanceId: that.instanceId };
+
+      if (that.typeIndex == "1") {
+        data.place = that.place;
+      }
+      var url;
+      if (that.opt == "insert") {// opt是從上個頁面傳來的
+        url = that.url.insertMeeting;
+      } else
+      if (that.opt == "edit") {
+        url = that.url.updateMeetingInfo;
+      }
+      that.ajax(url, 'POST', data, function (resp) {
+        uni.showToast({
+          icon: 'success',
+          title: '保存成功',
+          complete: function complete() {
+            setTimeout(function () {
+              uni.navigateBack({});
+            }, 2000); // 兩秒後執行
+          } });
+
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

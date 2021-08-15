@@ -31,7 +31,8 @@ Vue.prototype.url = {
 	deleteMessageRefById: baseUrl + "/message/deleteMessageRefById",
 	searchMyMeetingListByPage: baseUrl + "/meeting/searchMyMeetingListByPage",
 	searchUserGroupByDept: baseUrl + "/user/searchUserGroupByDept",
-	searchMembers: baseUrl + "/user/searchMembers"
+	searchMembers: baseUrl + "/user/searchMembers",
+	insertMeeting: baseUrl + "/meeting/insertMeeting"
 
 }
 
@@ -81,6 +82,93 @@ Vue.prototype.ajax = function(url, method, data, fun) {
 		}
 	})
 }
+
+Vue.prototype.checkNull = function(data, name) {
+	if (data == null) {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能為空"
+		})
+		return true
+	}
+	return false
+}
+Vue.prototype.checkBlank = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能為空"
+		})
+		return true
+	}
+	return false
+}
+
+Vue.prototype.checkValidName = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能為空"
+		})
+		return true
+	} else if (!/^[\u4e00-\u9fa5]{2,15}$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正確"
+		})
+		return true
+	}
+	return false
+}
+
+Vue.prototype.checkValidTel = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能為空"
+		})
+		return true
+	} else if (!/^[0-9]{10}$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正確"
+		})
+		return true
+	}
+	return false
+}
+
+Vue.prototype.checkValidEmail = function(data, name) {
+	if (data == null || data == "") {
+		uni.showToast({
+			icon: "none",
+			title: name + "不能為空"
+		})
+		return true
+	} else if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(data)) {
+		uni.showToast({
+			icon: "none",
+			title: name + "内容不正確"
+		})
+		return true
+	}
+	return false
+}
+
+Vue.prototype.checkValidStartAndEnd = function(start, end) {
+	let d1 = new Date("2000/01/01 " + start + ":00");
+	let d2 = new Date("2000/01/01 " + end + ":00");
+	if (d2.getTime() <= d1.getTime()) {
+		uni.showToast({
+			icon: "none",
+			title: "結束時間必須大於開始時間"
+		})
+		return true
+	}
+	return false
+}
+
+
 
 Date.prototype.format = function(fmt) {
 	var o = {
