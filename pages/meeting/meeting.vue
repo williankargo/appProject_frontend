@@ -31,7 +31,8 @@
 				<view class="item">
 					<view class="key">會議類型</view>
 					<picker v-if="canEdit" :value="typeIndex" :range="typeArray" @change="typeChange">
-						{{typeArray[typeIndex]}}</picker>
+						{{typeArray[typeIndex]}}
+					</picker>
 					<text v-if="!canEdit" class="value">{{typeArray[typeIndex]}}</text>
 				</view>
 				<view class="item" v-if="typeArray[typeIndex] == '線下會議'" @tap="editPlace">
@@ -59,10 +60,12 @@
 		<button class="btn" @tap="save">保存</button>
 		<!-- 氣泡消息 -->
 		<uni-popup ref="popupPlace" type="dialog">
-			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議地點" :value="place" @confirm="finishPlace"></uni-popup-dialog>
+			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議地點" :value="place" @confirm="finishPlace">
+			</uni-popup-dialog>
 		</uni-popup>
 		<uni-popup ref="popupDesc" type="dialog">
-			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議內容" :value="desc" @confirm="finishDesc"></uni-popup-dialog>
+			<uni-popup-dialog mode="input" title="編輯文字內容" placeholder="輸入會議內容" :value="desc" @confirm="finishDesc">
+			</uni-popup-dialog>
 		</uni-popup>
 	</view>
 
@@ -115,6 +118,25 @@
 
 					now.setTime(now.getTime() + 60 * 60 * 1000) // 會議結束在一小時毫秒後
 					that.end = now.format("hh:mm")
+				} else if (that.opt == "edit") {
+					that.ajax(that.url.searchMeetingbyId, "POST", {
+						id: that.id
+					}, function(resp) {
+						let result = resp.data.result
+						that.uuid = result.uuid;
+						that.title = result.title;
+						that.date = result.date;
+						that.start = result.start;
+						that.end = result.end;
+						that.typeIndex = result.type - 1;
+						that.place = result.place;
+						let desc = result.desc;
+						if (desc != null && desc != '') {
+							that.desc = desc;
+						}
+						that.members = result.members;
+						that.instanceId = result.instanceId;
+					})
 				}
 			} else {
 				let members = []
@@ -156,58 +178,58 @@
 			typeChange: function(e) {
 				this.typeIndex = e.detail.value
 			},
-			
-			editPlace: function(){
-				if(!this.canEdit){
+
+			editPlace: function() {
+				if (!this.canEdit) {
 					return
 				}
 				this.$refs.popupPlace.open()
 			},
-			finishPlace: function(done, value){
-				if (value != null && value != ''){
+			finishPlace: function(done, value) {
+				if (value != null && value != '') {
 					this.place = value
-					done() 				// 關閉氣泡消息
-				}else{
+					done() // 關閉氣泡消息
+				} else {
 					uni.showToast({
 						icon: 'none',
 						title: '地點不能為空'
 					})
 				}
 			},
-			editDesc: function(){
-				if(!this.canEdit){
+			editDesc: function() {
+				if (!this.canEdit) {
 					return
 				}
 				this.$refs.popupDesc.open()
 			},
-			finishDesc: function(done, value){
-				if (value != null && value != ''){
+			finishDesc: function(done, value) {
+				if (value != null && value != '') {
 					this.desc = value
-					done() 				// 關閉氣泡消息
-				}else{
+					done() // 關閉氣泡消息
+				} else {
 					uni.showToast({
 						icon: 'none',
 						title: '內容不能為空'
 					})
 				}
 			},
-			save: function(){
+			save: function() {
 				let that = this
 				let array = []
-				for(let one of that.members){
+				for (let one of that.members) {
 					array.push(one.id)
 				}
-				if( // 驗證數據
+				if ( // 驗證數據
 					that.checkBlank(that.title, "會議題目") ||
 					that.checkValidStartAndEnd(that.start, that.end) ||
 					(that.typeIndex == "1" && that.checkBlank(that.place, "會議地點")) ||
 					that.checkBlank(that.desc, "會議內容") ||
 					array.length == 0
-				){
+				) {
 					return
 				}
 				let data = {
-					title: that.title, 
+					title: that.title,
 					date: that.date,
 					start: that.start,
 					end: that.end,
@@ -217,22 +239,21 @@
 					id: that.id,
 					instanceId: that.instanceId
 				};
-				if(that.typeIndex == "1"){
+				if (that.typeIndex == "1") {
 					data.place = that.place
 				}
 				let url;
-				if(that.opt == "insert"){ // opt是從上個頁面傳來的
+				if (that.opt == "insert") { // opt是從上個頁面傳來的
 					url = that.url.insertMeeting
-				}
-				else if(that.opt == "edit"){
+				} else if (that.opt == "edit") {
 					url = that.url.updateMeetingInfo
 				}
-				that.ajax(url, 'POST', data, function(resp){
+				that.ajax(url, 'POST', data, function(resp) {
 					uni.showToast({
 						icon: 'success',
 						title: '保存成功',
-						complete: function(){
-							setTimeout(function(){
+						complete: function() {
+							setTimeout(function() {
 								uni.navigateBack({});
 							}, 2000) // 兩秒後執行
 						}

@@ -13,9 +13,10 @@
 						<image v-if="meeting.type=='線上會議'" src="../../static/icon-11.png" mode="widthFix" class="icon"></image>
 						<image v-if="meeting.type=='線下會議'" src="../../static/icon-11.png" mode="widthFix" class="icon"></image>
 						<text>{{meeting.type}}</text>
-						<text :class="meeting.status=='未開始'?'blue':'red'">（{{meeting.status}})</text>
+						<text :class="meeting.status== '未開始'?'blue':'red'">（{{meeting.status}})</text>
 					</view>
-					<view class="right">
+					<view class="right" @tap="toMeetingPage(meeting.id, 'edit')"
+					v-if = "checkPermission(['ROOT', 'MEETING: UPDATE']) && meeting.status == '未開始'">
 						<text>編輯</text>
 					</view>
 				</view>
@@ -126,7 +127,7 @@
 						ref.isLastPage = true
 						ref.page = ref.page - 1
 						if(ref.page > 1){
-							uni.showToast({
+							uni.showToast(
 								icon: "none",
 								title: "已經到底了"
 							})
@@ -138,14 +139,14 @@
 								if(meeting.type == 1){
 									meeting.type = "線上會議"
 								}
-								else if(meeting.type = 2){
+								else if(meeting.type == 2){
 									meeting.type = "線下會議"
 								}
 								
 								if(meeting.status == 3){
 									meeting.status = "未開始"
 								}
-								else if(meeting.status = 4){
+								else if(meeting.status == 4){
 									meeting.status = "進行中"
 								}
 							}

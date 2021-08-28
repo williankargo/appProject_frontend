@@ -32,7 +32,8 @@ Vue.prototype.url = {
 	searchMyMeetingListByPage: baseUrl + "/meeting/searchMyMeetingListByPage",
 	searchUserGroupByDept: baseUrl + "/user/searchUserGroupByDept",
 	searchMembers: baseUrl + "/user/searchMembers",
-	insertMeeting: baseUrl + "/meeting/insertMeeting"
+	insertMeeting: baseUrl + "/meeting/insertMeeting",
+	searchMeetingbyId: baseUrl + "/meeting/searchMeetingById"
 
 }
 

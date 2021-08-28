@@ -236,6 +236,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 {
   components: {
     uniPopup: uniPopup,
@@ -279,6 +282,25 @@ __webpack_require__.r(__webpack_exports__);
 
         now.setTime(now.getTime() + 60 * 60 * 1000); // 會議結束在一小時毫秒後
         that.end = now.format("hh:mm");
+      } else if (that.opt == "edit") {
+        that.ajax(that.url.searchMeetingbyId, "POST", {
+          id: that.id },
+        function (resp) {
+          var result = resp.data.result;
+          that.uuid = result.uuid;
+          that.title = result.title;
+          that.date = result.date;
+          that.start = result.start;
+          that.end = result.end;
+          that.typeIndex = result.type - 1;
+          that.place = result.place;
+          var desc = result.desc;
+          if (desc != null && desc != '') {
+            that.desc = desc;
+          }
+          that.members = result.members;
+          that.instanceId = result.instanceId;
+        });
       }
     } else {
       var members = [];
@@ -387,8 +409,7 @@ __webpack_require__.r(__webpack_exports__);
       var url;
       if (that.opt == "insert") {// opt是從上個頁面傳來的
         url = that.url.insertMeeting;
-      } else
-      if (that.opt == "edit") {
+      } else if (that.opt == "edit") {
         url = that.url.updateMeetingInfo;
       }
       that.ajax(url, 'POST', data, function (resp) {
